@@ -136,8 +136,12 @@ import { RkComponent } from '../rkComponent';
  */
 
 /* eslint-disable no-underscore-dangle */
-
 export class RkTextInput extends RkComponent {
+  componentDidMount() {
+    if (this.props.onRef != null) {
+        this.props.onRef(this)
+    }
+  }
   static propTypes = {
     editable: PropTypes.bool,
     label: PropTypes.oneOfType([
@@ -175,7 +179,6 @@ export class RkTextInput extends RkComponent {
       this.inputRef.focus();
     }
   };
-
   renderLabel(label, labelStyle) {
     if (typeof label === 'string') {
       return (
