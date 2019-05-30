@@ -128,7 +128,6 @@ export class RkSwitch extends RkComponent {
       ...restProps
     } = this.props;
     const { componentStyles, switchStyles } = this.defineStyles(rkType);
-    console.warn(switchStyles.trackColor);
     return (
       <View style={[componentStyles, style]}>
         <Switch

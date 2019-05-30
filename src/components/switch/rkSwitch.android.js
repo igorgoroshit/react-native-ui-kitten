@@ -99,17 +99,14 @@ export class RkSwitch extends RkComponent {
   };
   static propTypes = {
     disabled: PropTypes.bool,
-    onTintColor: PropTypes.string,
-    onValueChange: PropTypes.func,
-    thumbTintColor: PropTypes.string,
-    tintColor: PropTypes.string,
+    trackColor: PropTypes.object,
+    thumbColor: PropTypes.string,
     value: PropTypes.bool,
   };
   static defaultProps = {
     disabled: false,
-    onTintColor: '#53d669',
-    thumbTintColor: '#ffffff',
-    tintColor: '#e5e5e5',
+    trackColor: {false:'#53d669',true:'#e5e5e5'},
+    thumbColor: '#ffffff',
     value: false,
   };
 
@@ -243,9 +240,8 @@ export class RkSwitch extends RkComponent {
   defineStyles(additionalTypes) {
     const { component } = super.defineStyles(additionalTypes);
     const switchStyles = {
-      onTintColor: this.extractNonStyleValue(component, 'onTintColor'),
-      thumbTintColor: this.extractNonStyleValue(component, 'thumbTintColor'),
-      tintColor: this.extractNonStyleValue(component, 'tintColor'),
+      trackColor: this.extractNonStyleValue(component, 'trackColor'),
+      thumbColor: this.extractNonStyleValue(component, 'thumbColor'),
     };
     return { componentStyles: component, switchStyles };
   }
@@ -253,9 +249,8 @@ export class RkSwitch extends RkComponent {
   render() {
     const {
       disabled,
-      onTintColor,
-      thumbTintColor,
-      tintColor,
+      trackColor,
+      thumbColor,
       value,
       rkType,
       style,
@@ -264,8 +259,8 @@ export class RkSwitch extends RkComponent {
     const interpolatedTintColor = this.switchAnimation.interpolate({
       inputRange: value ? [-switchOffsetValue, 0] : [0, switchOffsetValue],
       outputRange: [
-        switchStyles.tintColor || tintColor,
-        switchStyles.onTintColor || onTintColor,
+        switchStyles.trackColor || trackColor,
+        switchStyles.thumbColor || thumbColor,
       ],
     });
     const returnScale = this.switchAnimation.interpolate({
@@ -289,7 +284,7 @@ export class RkSwitch extends RkComponent {
               alignSelf: value ? 'flex-end' : 'flex-start',
               transform: [{ translateX: this.switchAnimation }],
               borderColor: interpolatedTintColor,
-              backgroundColor: switchStyles.thumbTintColor || thumbTintColor,
+              backgroundColor: switchStyles.thumbColor || thumbColor,
               elevation: disabled ? 0 : 5,
             },
           ]}
