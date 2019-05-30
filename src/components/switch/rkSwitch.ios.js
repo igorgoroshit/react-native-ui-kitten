@@ -37,9 +37,9 @@ import { RkComponent } from '../rkComponent';
  *
  * ```
  * <RkSwitch
- *   tintColor='blue'
- *   onTintColor='yellow'
- *   thumbTintColor='purple'
+ *   trackColor='blue'
+ *   trackColor='yellow'
+ *   thumbColor='purple'
  *   value={this.state.value}
  *   onValueChange={this.onSwitchValueChange)}
  * />
@@ -66,17 +66,17 @@ import { RkComponent } from '../rkComponent';
  *
  * ```
  * RkTheme.setType('RkSwitch', 'projectDefault', {
- *   tintColor: 'blue',
- *   onTintColor: 'yellow',
- *   thumbTintColor: 'purple',
+ *   trackColor: 'blue',
+ *   trackColor: 'yellow',
+ *   thumbColor: 'purple',
  *   margin: 10,
  * });
  * ```
  *
  * @styles Available style properties:
- * - `tintColor` : will be converted into `tintColor` prop of `Switch`
- * - `onTintColor` : will be converted into `onTintColor` prop of `Switch`
- * - `thumbTintColor` : will be converted into `thumbTintColor` prop of `Switch`
+ * - `trackColor` : will be converted into `trackColor` prop of `Switch`
+ * - `trackColor` : will be converted into `trackColor` prop of `Switch`
+ * - `thumbColor` : will be converted into `thumbColor` prop of `Switch`
  * - ...: Any other style properties will be applied to `View` container.
  *
  * @property {string} rkType - Types for component stylization
@@ -92,9 +92,8 @@ export class RkSwitch extends RkComponent {
   static propTypes = {
     rkType: RkComponent.propTypes.rkType,
     disabled: PropTypes.bool,
-    onTintColor: PropTypes.string,
-    thumbTintColor: PropTypes.string,
-    tintColor: PropTypes.string,
+    trackColor: PropTypes.object,
+    thumbColor: PropTypes.string,
     value: PropTypes.bool,
     onValueChange: PropTypes.func,
     style: ViewPropTypes.style,
@@ -102,9 +101,9 @@ export class RkSwitch extends RkComponent {
   static defaultProps = {
     rkType: RkComponent.defaultProps.rkType,
     disabled: false,
-    onTintColor: '#53d669',
-    thumbTintColor: '#ffffff',
-    tintColor: '#e5e5e5',
+    trackColor: {false:'#53d669',true:'#e5e5e5'},
+    thumbColor: '#ffffff',
+    ios_backgroundColor:'grey',
     value: false,
     onValueChange: (() => null),
     style: null,
@@ -113,29 +112,29 @@ export class RkSwitch extends RkComponent {
   defineStyles(additionalTypes) {
     const { component } = super.defineStyles(additionalTypes);
     const switchStyles = {
-      onTintColor: this.extractNonStyleValue(component, 'onTintColor'),
-      thumbTintColor: this.extractNonStyleValue(component, 'thumbTintColor'),
-      tintColor: this.extractNonStyleValue(component, 'tintColor'),
+      trackColor: this.extractNonStyleValue(component, 'trackColor'),
+      thumbColor: this.extractNonStyleValue(component, 'thumbColor'),
     };
     return { componentStyles: component, switchStyles };
   }
 
   render() {
     const {
-      onTintColor,
-      thumbTintColor,
-      tintColor,
+      trackColor,
+      thumbColor,
       rkType,
       style,
+      ios_backgroundColor,
       ...restProps
     } = this.props;
     const { componentStyles, switchStyles } = this.defineStyles(rkType);
+    console.warn(switchStyles.trackColor);
     return (
       <View style={[componentStyles, style]}>
         <Switch
-          onTintColor={switchStyles.onTintColor || onTintColor}
-          thumbTintColor={switchStyles.thumbTintColor || thumbTintColor}
-          tintColor={switchStyles.tintColor || tintColor}
+          trackColor={switchStyles.trackColor || trackColor}
+          thumbColor={switchStyles.thumbColor || thumbColor}
+          ios_backgroundColor={ios_backgroundColor}
           {...restProps}
         />
       </View>

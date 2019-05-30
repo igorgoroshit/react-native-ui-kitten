@@ -3,18 +3,18 @@ export const RkSwitchTypes = (theme) => ({
     component: { },
   },
   primary: {
-    onTintColor: theme.colors.button.primary,
+    trackColor: {true:theme.colors.button.primary,false:'transparent'},
   },
   warning: {
-    onTintColor: theme.colors.button.warning,
+    trackColor: {true:theme.colors.button.warning,false:'transparent'},
   },
   danger: {
-    onTintColor: theme.colors.button.danger,
+    trackColor: {true:theme.colors.button.danger,false:'transparent'},
   },
   success: {
-    onTintColor: theme.colors.button.success,
+    trackColor: {true:theme.colors.button.success,false:'transparent'},
   },
   info: {
-    onTintColor: theme.colors.button.info,
+    trackColor: {true:theme.colors.button.info,false:'transparent'},
   },
 });
